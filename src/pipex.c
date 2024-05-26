@@ -6,7 +6,7 @@
 /*   By: dkoca <dkoca@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:59:57 by dkoca             #+#    #+#             */
-/*   Updated: 2024/05/26 08:14:21 by dkoca            ###   ########.fr       */
+/*   Updated: 2024/05/26 08:15:25 by dkoca            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void run_pipes(t_pipex *pipex, char **command)
     close(pipex->pipe_end[READ_END]);
     close(pipex->pipe_end[WRITE_END]);
 }
-
 
 int wait_for_children(t_pipex *pipex)
 {

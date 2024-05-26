@@ -6,7 +6,7 @@
 /*   By: dkoca <dkoca@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 04:54:37 by dkoca             #+#    #+#             */
-/*   Updated: 2024/05/26 08:14:06 by dkoca            ###   ########.fr       */
+/*   Updated: 2024/05/26 08:18:04 by dkoca            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,9 @@ int open_outfile(char *outfile)
     int fd;
     
     fd = -1;
-    if (access(outfile, W_OK) == 0)
-    {
-        fd = open(outfile, O_CREAT | O_TRUNC | O_WRONLY, 0644);
-        if (fd == -1)
-            ft_perror("Open failed.");
-    }
-    else
-    ft_perror("Permission denied.");
+    fd = open(outfile, O_CREAT | O_TRUNC | O_WRONLY, 0644);
+    if (fd == -1)
+        ft_perror("Open failed.");
     return (fd);
 }
 
