@@ -6,7 +6,7 @@
 /*   By: dkoca <dkoca@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:59:57 by dkoca             #+#    #+#             */
-/*   Updated: 2024/05/26 07:26:29 by dkoca            ###   ########.fr       */
+/*   Updated: 2024/05/26 07:52:02 by dkoca            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void create_child_process(t_pipex *pipex, char *command, int flags)
             ft_perror("Invalid command."); // free array
         //redirect i/o
         redirect_input(pipex, flags);
-        redirect_input(pipex, flags);
+        redirect_output(pipex, flags);
         execute(pipex);
     }
     if (flags & SAVE_PID)
