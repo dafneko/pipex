@@ -6,7 +6,7 @@
 /*   By: dkoca <dkoca@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 23:52:37 by dkoca             #+#    #+#             */
-/*   Updated: 2024/05/26 07:25:15 by dkoca            ###   ########.fr       */
+/*   Updated: 2024/05/26 08:13:46 by dkoca            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,12 @@ char *check_access(t_pipex *pipex)
     while (pipex->all_paths[i])
     {
         path = ft_strjoin_chr(pipex->all_paths[i], *(pipex->cmd), "/");
-        // printf("path = %s\n", path);
         if (access(path, F_OK) == 0)
             found = 1;
         if (access(path, X_OK) == 0)
             break;
         free(path);
         i++;
-        // (*pipex->all_paths)++;
     }
     if (path && found)
         return (path);   

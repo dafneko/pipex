@@ -6,7 +6,7 @@
 /*   By: dkoca <dkoca@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 23:47:25 by dkoca             #+#    #+#             */
-/*   Updated: 2024/05/26 07:29:59 by dkoca            ###   ########.fr       */
+/*   Updated: 2024/05/26 08:13:41 by dkoca            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ typedef struct s_pipex
     int pipe_end[2];
     char **all_paths;
     int prev_pid;
-    int fd_in;
-    int fd_out;
 } t_pipex;
 
 enum flags

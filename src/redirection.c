@@ -6,7 +6,7 @@
 /*   By: dkoca <dkoca@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 04:54:37 by dkoca             #+#    #+#             */
-/*   Updated: 2024/05/26 08:09:12 by dkoca            ###   ########.fr       */
+/*   Updated: 2024/05/26 08:14:06 by dkoca            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int redirect_output(t_pipex *pipex, int flags)
         fd = open_outfile(pipex->outfile);
     else if (FD_PIPE_OUT & flags)
         fd = pipex->pipe_end[WRITE_END];
-    // printf("fd = %i\n\n", fd);
     if (fd != STDOUT_FILENO)
     {
         if (dup2(fd, STDOUT_FILENO) == -1)

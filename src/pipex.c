@@ -6,7 +6,7 @@
 /*   By: dkoca <dkoca@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:59:57 by dkoca             #+#    #+#             */
-/*   Updated: 2024/05/26 07:52:02 by dkoca            ###   ########.fr       */
+/*   Updated: 2024/05/26 08:14:21 by dkoca            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void execute(t_pipex *pipex)
 {
     char *bin;
-    // printf("command = %s\n", pipex->cmd[0]);
     bin = check_access(pipex);
-    // printf("bin = %s\n", bin);
     if (bin)
         if (execve(bin, pipex->cmd, pipex->envp) == -1)
             ft_perror("Execution failed.\n");
@@ -35,7 +33,6 @@ void create_child_process(t_pipex *pipex, char *command, int flags)
         pipex->cmd = ft_split(command, ' ');
         if (pipex->cmd == NULL)
             ft_perror("Invalid command."); // free array
-        //redirect i/o
         redirect_input(pipex, flags);
         redirect_output(pipex, flags);
         execute(pipex);
@@ -64,7 +61,6 @@ int wait_for_children(t_pipex *pipex)
     pid = 1;
     while (pid > 0)
     {
-    // printf("HERE\n");
         pid = wait(&status);
         if (pipex->prev_pid == pid)
             status = WEXITSTATUS(status);
