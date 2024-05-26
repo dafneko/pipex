@@ -6,7 +6,7 @@
 /*   By: dkoca <dkoca@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 23:52:37 by dkoca             #+#    #+#             */
-/*   Updated: 2024/05/25 05:05:45 by dkoca            ###   ########.fr       */
+/*   Updated: 2024/05/26 06:39:46 by dkoca            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char **find_paths(char **envp)
         }
         envp++;
     }
+    return (NULL);
 }
 
 
@@ -43,19 +44,31 @@ char *ft_strjoin_chr(char *str1, char *str2, char c)
     return (path);
 }
 
-int check_access(char **envp, char *command)
+char *check_access(t_pipex *pipex)
 {
-    char **all_paths;
     char *path;
-    int found;
+    int found; 
+    int i;
     
-    all_paths = find_paths(envp);
-    while (*all_paths)
+    i = 0;
+    found = 0;
+    while (pipex->all_paths[i])
     {
-        path = ft_strjoin_chr(*all_paths, command, '/');
+        path = ft_strjoin_chr(pipex->all_paths[i], *(pipex->cmd), '/');
+        // printf("path = %s\n", path);
         if (access(path, F_OK) == 0)
             found = 1;
-        all_paths++;
+        if (access(path, X_OK) == 0)
+            break;
+        free(path);
+        i++;
+        // (*pipex->all_paths)++;
     }
-    // free path
+    if (path && found)
+        return (path);   
+    else if(found)
+        ft_perror("Permission denied.\n");
+    else
+        ft_perror("Command not found\n");
+    return (NULL);     
 }
