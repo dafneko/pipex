@@ -6,7 +6,7 @@
 /*   By: dkoca <dkoca@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 23:52:37 by dkoca             #+#    #+#             */
-/*   Updated: 2024/05/26 06:39:46 by dkoca            ###   ########.fr       */
+/*   Updated: 2024/05/26 07:25:15 by dkoca            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ char **find_paths(char **envp)
 }
 
 
-char *ft_strjoin_chr(char *str1, char *str2, char c)
+char *ft_strjoin_chr(char *str1, char *str2, char *c)
 {
     char *bin;
     char *path;
-    bin = ft_strjoin(&c, str2);
+    (void)c;
+    bin = ft_strjoin(c, str2);
     path = ft_strjoin(str1, bin);
     free(bin);
     return (path);
@@ -54,7 +55,7 @@ char *check_access(t_pipex *pipex)
     found = 0;
     while (pipex->all_paths[i])
     {
-        path = ft_strjoin_chr(pipex->all_paths[i], *(pipex->cmd), '/');
+        path = ft_strjoin_chr(pipex->all_paths[i], *(pipex->cmd), "/");
         // printf("path = %s\n", path);
         if (access(path, F_OK) == 0)
             found = 1;

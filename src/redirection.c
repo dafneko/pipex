@@ -6,7 +6,7 @@
 /*   By: dkoca <dkoca@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 04:54:37 by dkoca             #+#    #+#             */
-/*   Updated: 2024/05/26 05:08:46 by dkoca            ###   ########.fr       */
+/*   Updated: 2024/05/26 07:42:15 by dkoca            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,18 @@ int redirect_input(t_pipex *pipex, int flags)
     int fd;
 
     fd = STDIN_FILENO;
-    if (!(FD_PIPE_IN & flags))
+    if ((FD_PIPE_IN & flags) == 0)
         close(pipex->pipe_end[READ_END]);
     if (FD_INFILE & flags)
         open_infile(pipex->infile, &fd);
     else if (FD_PIPE_IN & flags)
         fd = pipex->pipe_end[READ_END];
     if (fd != STDIN_FILENO)
+    {
         if (dup2(fd, STDIN_FILENO) == -1)
-            (ft_perror("Dup failed."), close(fd));
+            (close(fd), ft_perror("Bad file descriptor.\n"));
+        close(fd);
+    }
     return (EXIT_SUCCESS);
 }
 
@@ -60,14 +63,17 @@ int redirect_output(t_pipex *pipex, int flags)
     int fd;
     
     fd = STDOUT_FILENO;
-    if (!(FD_PIPE_OUT & flags))
+    if ((FD_PIPE_OUT & flags) == 0)
         close(pipex->pipe_end[WRITE_END]);
     if (FD_OUTFILE & flags)
         open_outfile(pipex->outfile, &fd);
     else if (FD_PIPE_OUT & flags)
         fd = pipex->pipe_end[WRITE_END];
     if (fd != STDOUT_FILENO)
+    {
         if (dup2(fd, STDOUT_FILENO) == -1)
-            (ft_perror("Dup failed."), close(fd));
+            (close(fd), ft_perror("Bad file descriptor."));
+        // close(fd);
+    }
     return (EXIT_SUCCESS);    
 }
