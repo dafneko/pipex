@@ -6,7 +6,7 @@
 /*   By: dkoca <dkoca@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 04:54:37 by dkoca             #+#    #+#             */
-/*   Updated: 2024/05/27 03:27:29 by dkoca            ###   ########.fr       */
+/*   Updated: 2024/05/27 03:35:14 by dkoca            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,8 @@ int open_infile(char *infile)
     fd = -1;
     if (access(infile, F_OK) == -1)
         ft_perror(NAME);
-    if (access(infile, R_OK) == 0)
-    {
-        fd = open(infile, O_RDONLY);
-        if (fd == -1)
-            ft_perror(NAME);
-    }
-    else
+    fd = open(infile, O_RDONLY);
+    if (fd == -1)
         ft_perror(NAME);
     return (fd);
 }
