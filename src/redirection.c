@@ -6,7 +6,7 @@
 /*   By: dkoca <dkoca@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 04:54:37 by dkoca             #+#    #+#             */
-/*   Updated: 2024/05/26 08:18:04 by dkoca            ###   ########.fr       */
+/*   Updated: 2024/05/27 03:27:29 by dkoca            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ int open_infile(char *infile)
     
     fd = -1;
     if (access(infile, F_OK) == -1)
-        ft_perror("No such file or directory.");
+        ft_perror(NAME);
     if (access(infile, R_OK) == 0)
     {
         fd = open(infile, O_RDONLY);
         if (fd == -1)
-            ft_perror("Open failed.");
+            ft_perror(NAME);
     }
     else
-        ft_perror("Permission denied.");
+        ft_perror(NAME);
     return (fd);
 }
 
@@ -37,7 +37,7 @@ int open_outfile(char *outfile)
     fd = -1;
     fd = open(outfile, O_CREAT | O_TRUNC | O_WRONLY, 0644);
     if (fd == -1)
-        ft_perror("Open failed.");
+        ft_perror(NAME);
     return (fd);
 }
 
@@ -55,7 +55,7 @@ int redirect_input(t_pipex *pipex, int flags)
     if (fd != STDIN_FILENO)
     {
         if (dup2(fd, STDIN_FILENO) == -1)
-            (close(fd), ft_perror("Bad file descriptor.\n"));
+            (close(fd), ft_perror(NAME));
         close(fd);
     }
     return (EXIT_SUCCESS);
@@ -75,7 +75,7 @@ int redirect_output(t_pipex *pipex, int flags)
     if (fd != STDOUT_FILENO)
     {
         if (dup2(fd, STDOUT_FILENO) == -1)
-            (close(fd), ft_perror("Bad file descriptor."));
+            (close(fd), ft_perror(NAME));
         close(fd);
     }
     return (EXIT_SUCCESS);    

@@ -6,7 +6,7 @@
 /*   By: dkoca <dkoca@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 23:47:25 by dkoca             #+#    #+#             */
-/*   Updated: 2024/05/26 08:13:41 by dkoca            ###   ########.fr       */
+/*   Updated: 2024/05/27 03:21:36 by dkoca            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@
 
 #define WRITE_END 1
 #define READ_END 0
+
+#define NAME "pipex"
+
+#define CMD_NOT_FOUND "command not found"
+#define BAD_FD "Bad file descriptor"
+#define PERM_DENIED "Permission denied"
     
 typedef struct s_pipex
 {
@@ -48,7 +54,10 @@ enum flags
 };
 
 
-void ft_perror(char *errormsg);
+void ft_perror(const char *errormsg);
+void ft_error(char *errormsg);
+void free_double_arr(char **arr);
+char *ft_strjoin_chr(char *str1, char *str2, char *c);
 char **find_paths(char **envp);
 int get_envp(char **envp, char *command);
 char *check_access(t_pipex *pipex);

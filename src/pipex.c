@@ -6,11 +6,38 @@
 /*   By: dkoca <dkoca@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:59:57 by dkoca             #+#    #+#             */
-/*   Updated: 2024/05/26 08:15:25 by dkoca            ###   ########.fr       */
+/*   Updated: 2024/05/27 03:14:44 by dkoca            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+char *check_access(t_pipex *pipex)
+{
+    char *path;
+    int found; 
+    int i;
+    
+    i = 0;
+    found = 0;
+    while (pipex->all_paths[i])
+    {
+        path = ft_strjoin_chr(pipex->all_paths[i], *(pipex->cmd), "/");
+        if (access(path, F_OK) == 0)
+            found = 1;
+        if (access(path, X_OK) == 0)
+            break;
+        free(path);
+        i++;
+    }
+    if (path && found)
+        return (path);   
+    else if(found)
+        ft_perror(NAME);
+    else
+        ft_perror(NAME);
+    return (NULL);     
+}
 
 void execute(t_pipex *pipex)
 {
@@ -18,7 +45,7 @@ void execute(t_pipex *pipex)
     bin = check_access(pipex);
     if (bin)
         if (execve(bin, pipex->cmd, pipex->envp) == -1)
-            ft_perror("Execution failed.\n");
+            ft_error("Execution failed.\n");
 }
 
 void create_child_process(t_pipex *pipex, char *command, int flags)
@@ -64,5 +91,7 @@ int wait_for_children(t_pipex *pipex)
         if (pipex->prev_pid == pid)
             status = WEXITSTATUS(status);
     }
+    free_double_arr(pipex->all_paths);
     return (status);
 }
+

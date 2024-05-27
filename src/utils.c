@@ -6,17 +6,23 @@
 /*   By: dkoca <dkoca@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 23:52:37 by dkoca             #+#    #+#             */
-/*   Updated: 2024/05/26 08:13:46 by dkoca            ###   ########.fr       */
+/*   Updated: 2024/05/27 03:15:17 by dkoca            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void ft_perror(char *errormsg)
+void ft_perror(const char *program)
 {
-    perror(errormsg);
+    perror(program);
     exit(EXIT_FAILURE);
 }
+
+void ft_error(char *errormsg)
+{
+    ft_putendl_fd(errormsg, STDERR_FILENO);
+    exit(EXIT_FAILURE);
+} 
 
 char **find_paths(char **envp)
 {
@@ -45,29 +51,12 @@ char *ft_strjoin_chr(char *str1, char *str2, char *c)
     return (path);
 }
 
-char *check_access(t_pipex *pipex)
+void free_double_arr(char **arr)
 {
-    char *path;
-    int found; 
     int i;
-    
-    i = 0;
-    found = 0;
-    while (pipex->all_paths[i])
-    {
-        path = ft_strjoin_chr(pipex->all_paths[i], *(pipex->cmd), "/");
-        if (access(path, F_OK) == 0)
-            found = 1;
-        if (access(path, X_OK) == 0)
-            break;
-        free(path);
-        i++;
-    }
-    if (path && found)
-        return (path);   
-    else if(found)
-        ft_perror("Permission denied.\n");
-    else
-        ft_perror("Command not found\n");
-    return (NULL);     
+
+    i = -1;
+    while (arr[++i])
+        free(arr[i]);
+    free(arr);
 }
