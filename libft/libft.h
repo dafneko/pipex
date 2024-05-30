@@ -3,17 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkoca <dkoca@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: dkoca <dkoca@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 22:04:29 by dkoca             #+#    #+#             */
-/*   Updated: 2023/12/07 22:04:29 by dkoca            ###   ########.fr       */
+/*   Updated: 2024/02/18 21:02:55 by dkoca            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <stdarg.h>
+# include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+# define HEX "0123456789abcdef"
+# define HEX_U "0123456789ABCDEF"
+# define DIG "0123456789"
 
 typedef struct s_list
 {
@@ -60,5 +67,38 @@ void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 char				*ft_itoa(int n);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				**ft_split(char const *s, char c);
+
+// printf_utils.c
+int					print_char(char c);
+int					print_str(char *s);
+int					putnbr_base(long long int nb, char *base);
+int					print_pointer(uintptr_t ptr, char *base, int flag);
+// printf
+int					type_check(char format, va_list ap);
+int					ft_printf(const char *str, ...);
+
+// new
+int					ft_abs(int n);
+int					ft_isspace(int c);
+int					ft_atoi_base(const char *nptr, char *base);
+
+// get next line
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5000
+# endif
+
+typedef struct variables
+{
+	char			*buf;
+	int				br;
+	char			*next;
+	char			*line;
+	int				len;
+}					t_vars;
+
+char				*get_next_line(int fd);
+char				*readbuf(char *buf, char *line, int bytesread, int fd);
+// utils.c
+char				*gnl_strjoin(char const *s1, char const *s2);
 
 #endif

@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-
 int	ft_isalpha(int c)
 {
 	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
@@ -20,17 +18,17 @@ int	ft_isalpha(int c)
 		return (0);
 }
 
-
+/*
 int	main(void)
  {
 	char c, result;
 
 		c = '*';
-	result = ft_isalpha(c + 256);
+	result = ft_isalpha(c);
 		printf("The result is %d\n", result);
 
 		c = 'B';
-	result = ft_isalpha(c + 256);
+	result = ft_isalpha(c);
 		printf("The result is %d\n", result);
 
 		c = '+';
@@ -38,4 +36,4 @@ int	main(void)
 		printf("The result is %d\n", result);
 	return (0);
  }
- 
+ */

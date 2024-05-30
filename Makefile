@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dkoca <dkoca@student.42berlin.de>          +#+  +:+       +#+         #
+#    By: dkoca <dkoca@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 01:06:15 by dkoca             #+#    #+#              #
-#    Updated: 2024/05/26 05:34:19 by dkoca            ###   ########.fr        #
+#    Updated: 2024/05/30 10:14:05 by dkoca            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := pipex
 
 SRCDIR := src
-_SRC := main.c pipex.c utils.c redirection.c
+_SRC := main.c pipex.c utils.c redirection.c free.c
 SRC := $(addprefix $(SRCDIR)/, $(_SRC))
 
 OBJDIR := obj
